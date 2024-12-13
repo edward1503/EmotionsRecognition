@@ -15,21 +15,8 @@ def clean_text(text):
     return text
 
 # Tiền xử lý và vector hóa
-class TextPreprocessor:
-    def __init__(self, stopwords=None, max_features=5000):
-        self.stopwords = stopwords
-        self.vectorizer = TfidfVectorizer(max_features=max_features, stop_words=self.stopwords)
-    
-    def fit(self, X):
-        """Tạo mô hình từ dữ liệu đầu vào (fit trên dữ liệu huấn luyện)"""
-        X_cleaned = [clean_text(text) for text in X]
-        self.vectorizer.fit(X_cleaned)
-        return self
-    
-    def transform(self, X):
-        """Chuyển đổi dữ liệu đầu vào thành các vector"""
-        X_cleaned = [clean_text(text) for text in X]
-        return self.vectorizer.transform(X_cleaned)
+vectorizer = TfidfVectorizer(max_features=5000)
+
 
 # Tải các mô hình đã huấn luyện
 svm_model = joblib.load('svm_model.pkl')
@@ -40,7 +27,8 @@ labels = ['Fear', 'Anger', 'Surprise', 'Enjoyment', 'Disgust', 'Sadness', 'Other
 
 # Hàm dự đoán cho SVM và Naive Bayes
 def predict_svm_nb(model, text, vectorizer):
-    prob = model.predict_proba([text])[0]
+    text_vectorized = vectorizer.transform([text])  # Biến 'text' thành một vector
+    prob = model.predict_proba(text_vectorized)[0]
     return prob
 
 # Streamlit App
