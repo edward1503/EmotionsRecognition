@@ -15,7 +15,7 @@ def clean_text(text):
     return text
 
 # Tiền xử lý và vector hóa
-vectorizer = TfidfVectorizer(max_features=5000)
+vectorizer = joblib.load('tfidf_vectorizer.pkl')
 
 
 # Tải các mô hình đã huấn luyện
@@ -26,41 +26,28 @@ nb_model = joblib.load('nb_model.pkl')
 labels = ['Fear', 'Anger', 'Surprise', 'Enjoyment', 'Disgust', 'Sadness', 'Other']
 
 # Hàm dự đoán cho SVM và Naive Bayes
-def predict_svm_nb(model, text):
+def predict_svm_nb(model, text, vectorizer):
+    if vectorizer is None:
+        raise ValueError("Vectorizer is not loaded properly")
+    
+    # Mã hóa văn bản đầu vào
     text_vectorized = vectorizer.transform([text])  # Biến 'text' thành một vector
-    prob = model.predict_proba(text_vectorized)[0]
+    prob = model.predict_proba(text_vectorized)[0]  # Dự đoán xác suất
     return prob
 
 # Streamlit App
 st.title('Emotion Prediction for Text')
 st.write("Nhập một câu văn để dự đoán cảm xúc.")
 
-# Nhập câu văn từ người dùng
-user_input = st.text_area("Nhập câu văn", "Ước gì sau này về già vẫn có thể như cụ này :)")
-
-# Lựa chọn mô hình để dự đoán
-model_choice = st.selectbox('Chọn mô hình', ['SVM', 'Naive Bayes'])
-
-# Biểu đồ xác suất
-def plot_probabilities(probabilities):
-    plt.figure(figsize=(10,6))
-    sns.barplot(x=labels, y=probabilities, palette="viridis")
-    plt.xlabel('Emotion Classes')
+# Giao diện người dùng
+user_input = st.text_input("Nhập câu văn để dự đoán cảm xúc:")
+if user_input:
+    probabilities = predict_svm_nb(nb_model, user_input, vectorizer)
+    st.write(f"Xác suất của các nhãn: {probabilities}")
+    
+    # Vẽ biểu đồ xác suất
+    labels = ['Fear', 'Anger', 'Surprise', 'Enjoyment', 'Disgust', 'Sadness', 'Other']
+    plt.bar(labels, probabilities)
+    plt.xlabel('Emotion')
     plt.ylabel('Probability')
-    plt.title('Predicted Emotion Probabilities')
     st.pyplot(plt)
-
-# Dự đoán và hiển thị kết quả
-if model_choice == 'SVM':
-    probabilities = predict_svm_nb(svm_model, user_input)
-elif model_choice == 'Naive Bayes':
-    probabilities = predict_svm_nb(nb_model, user_input)
-
-
-# Hiển thị kết quả dự đoán
-st.write("Xác suất dự đoán cho các lớp cảm xúc:")
-plot_probabilities(probabilities)
-
-# Hiển thị nhãn có xác suất cao nhất
-predicted_label = labels[np.argmax(probabilities)]
-st.write(f"Nhãn dự đoán cao nhất: {predicted_label} với xác suất {probabilities[np.argmax(probabilities)]:.2f}")
