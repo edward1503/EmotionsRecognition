@@ -41,13 +41,27 @@ st.write("Nhập một câu văn để dự đoán cảm xúc.")
 
 # Giao diện người dùng
 user_input = st.text_input("Nhập câu văn để dự đoán cảm xúc:")
+model_choice = st.selectbox("Chọn mô hình để dự đoán:", ["Naive Bayes", "SVM"])
+
 if user_input:
-    probabilities = predict_svm_nb(nb_model, user_input, vectorizer)
-    st.write(f"Xác suất của các nhãn: {probabilities}")
+    if model_choice == "Naive Bayes":
+        probabilities = predict_svm_nb(nb_model, user_input, vectorizer)
+    elif model_choice == "SVM":
+        probabilities = predict_svm_nb(svm_model, user_input, vectorizer)
+    # Hiển thị kết quả nhãn dự đoán
+    predicted_label = labels[np.argmax(probabilities)]  # Nhãn với xác suất cao nhất
+    st.subheader(f"Kết quả dự đoán: {predicted_label}")
+
+    # Hiển thị xác suất cho từng nhãn
+    st.write("Xác suất của các nhãn cảm xúc:")
+    for i, prob in enumerate(probabilities):
+        st.write(f"{labels[i]}: {prob:.4f}")
     
-    # Vẽ biểu đồ xác suất
-    labels = ['Fear', 'Anger', 'Surprise', 'Enjoyment', 'Disgust', 'Sadness', 'Other']
-    plt.bar(labels, probabilities)
-    plt.xlabel('Emotion')
-    plt.ylabel('Probability')
-    st.pyplot(plt)
+    # Vẽ biểu đồ phân bố xác suất
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.bar(labels, probabilities, color='skyblue')
+    ax.set_xlabel('Emotion')
+    ax.set_ylabel('Probability')
+    ax.set_title('Probability Distribution of Emotions')
+    plt.xticks(rotation=45)
+    st.pyplot(fig)
