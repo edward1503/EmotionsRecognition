@@ -26,7 +26,7 @@ nb_model = joblib.load('nb_model.pkl')
 labels = ['Fear', 'Anger', 'Surprise', 'Enjoyment', 'Disgust', 'Sadness', 'Other']
 
 # Hàm dự đoán cho SVM và Naive Bayes
-def predict_svm_nb(model, text, vectorizer):
+def predict_svm_nb(model, text):
     text_vectorized = vectorizer.transform([text])  # Biến 'text' thành một vector
     prob = model.predict_proba(text_vectorized)[0]
     return prob
@@ -52,9 +52,9 @@ def plot_probabilities(probabilities):
 
 # Dự đoán và hiển thị kết quả
 if model_choice == 'SVM':
-    probabilities = predict_svm_nb(svm_model, user_input, None)
+    probabilities = predict_svm_nb(svm_model, user_input)
 elif model_choice == 'Naive Bayes':
-    probabilities = predict_svm_nb(nb_model, user_input, None)
+    probabilities = predict_svm_nb(nb_model, user_input)
 
 
 # Hiển thị kết quả dự đoán
