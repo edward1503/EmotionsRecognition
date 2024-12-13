@@ -51,7 +51,7 @@ st.write("Nhập một câu văn để dự đoán cảm xúc.")
 user_input = st.text_area("Nhập câu văn", "Ước gì sau này về già vẫn có thể như cụ này :)")
 
 # Lựa chọn mô hình để dự đoán
-model_choice = st.selectbox('Chọn mô hình', ['SVM', 'Naive Bayes', 'Deep Learning'])
+model_choice = st.selectbox('Chọn mô hình', ['SVM', 'Naive Bayes'])
 
 # Biểu đồ xác suất
 def plot_probabilities(probabilities):
