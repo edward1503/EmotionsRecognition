@@ -15,12 +15,12 @@ def clean_text(text):
     return text
 
 # Tiền xử lý và vector hóa
-vectorizer = joblib.load('tfidf_vectorizer.pkl')
+vectorizer = joblib.load('./Model/tfidf_vectorizer.pkl')
 
 
 # Tải các mô hình đã huấn luyện
-svm_model = joblib.load('svm_model.pkl')
-nb_model = joblib.load('nb_model.pkl')
+svm_model = joblib.load('./Model/svm_model.pkl')
+nb_model = joblib.load('./Model/nb_model.pkl')
 
 # Danh sách các nhãn cảm xúc
 labels = ['Fear', 'Anger', 'Surprise', 'Enjoyment', 'Disgust', 'Sadness', 'Other']
