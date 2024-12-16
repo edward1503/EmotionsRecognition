@@ -1,0 +1,13 @@
+joblib
+numpy
+pandas
+scikit-learn
+seaborn
+matplotlib
+streamlit
+gensim
+pyvi
+emoji
+tensorflow
+setuptools
+scipy==1.12
