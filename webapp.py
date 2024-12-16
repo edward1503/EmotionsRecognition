@@ -31,7 +31,7 @@ def preprocess_teencodes(sentence):
 
 # Load stopwords
 stopwords = []
-with open(r'..\\Data\\vietnamese-stopwords.txt', 'r', encoding="utf8") as f:
+with open(r'./Data/vietnamese-stopwords.txt', 'r', encoding="utf8") as f:
     for line in f:
         stopwords.append(line.strip())
 def remove_stopwords(words):
@@ -71,19 +71,19 @@ def tokenize(sentence):
 @st.cache_resource
 def load_models():
     # Load các vectorizer và model
-    tfidf = joblib.load(r'..\model\tfidf_vectorizer.pkl')
-    w2v = joblib.load(r'..\model\word2vec_model.pkl')
+    tfidf = joblib.load(r'./model/tfidf_vectorizer.pkl')
+    w2v = joblib.load(r'./model/word2vec_model.pkl')
 
     # TF-IDF models
     #maxent_tfidf = joblib.load(r'..\Trâm model\maxent_tfidf.pkl')
-    svm_tfidf = joblib.load(r'..\model\svm_tfidf.pkl')
-    logistic_tfidf = joblib.load(r'..\model\logistic_tfidf.pkl')
-    nn_tfidf = tf.keras.models.load_model(r'..\model\lstm_tfidf_ct_model.h5')
+    svm_tfidf = joblib.load(r'./model/svm_tfidf.pkl')
+    logistic_tfidf = joblib.load(r'./model/logistic_tfidf.pkl')
+    nn_tfidf = tf.keras.models.load_model(r'./model/lstm_tfidf_ct_model.h5')
     # W2V models
     #maxent_w2v = joblib.load(r'..\Trâm model\maxent_w2v.pkl')
-    svm_w2v = joblib.load(r'..\model\svm_w2v.pkl')
-    logistic_w2v = joblib.load(r'..\model\logistic_w2v.pkl')
-    bilstm_w2v = tf.keras.models.load_model(r'..\model\best_bilstm_w2v_model.h5')
+    svm_w2v = joblib.load(r'./model/svm_w2v.pkl')
+    logistic_w2v = joblib.load(r'./model/logistic_w2v.pkl')
+    bilstm_w2v = tf.keras.models.load_model(r'./model/best_bilstm_w2v_model.h5')
     return tfidf, w2v, svm_tfidf, logistic_tfidf, nn_tfidf, svm_w2v, logistic_w2v, bilstm_w2v
 
 # Gọi hàm load_models() chỉ một lần
