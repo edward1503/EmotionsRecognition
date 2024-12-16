@@ -84,11 +84,11 @@ def load_models():
     svm_w2v = joblib.load(r'..\model\svm_w2v.pkl')
     logistic_w2v = joblib.load(r'..\model\logistic_w2v.pkl')
     bilstm_w2v = tf.keras.models.load_model(r'..\model\best_bilstm_w2v_model.h5')
-    return tfidf, w2v, maxent_tfidf, svm_tfidf, logistic_tfidf, nn_tfidf, maxent_w2v, svm_w2v, logistic_w2v, bilstm_w2v
+    return tfidf, w2v, svm_tfidf, logistic_tfidf, nn_tfidf, svm_w2v, logistic_w2v, bilstm_w2v
 
 # Gọi hàm load_models() chỉ một lần
-(tfidf, w2v, maxent_tfidf, svm_tfidf, logistic_tfidf, nn_tfidf, 
- maxent_w2v, svm_w2v, logistic_w2v, bilstm_w2v) = load_models()
+(tfidf, w2v, svm_tfidf, logistic_tfidf, nn_tfidf, 
+ svm_w2v, logistic_w2v, bilstm_w2v) = load_models()
 
 max_len = 50
 word_index = {word: index for index, word in enumerate(w2v.wv.index_to_key, start=1)}
