@@ -6,7 +6,6 @@ seaborn
 matplotlib
 streamlit
 gensim
-re
 pyvi
 emoji
 tensorflow
