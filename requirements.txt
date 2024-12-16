@@ -10,3 +10,4 @@ pyvi
 emoji
 tensorflow
 setuptools
+scipy==1.12
