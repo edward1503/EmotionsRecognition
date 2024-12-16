@@ -17,7 +17,7 @@ num_to_emotion = dict({k:v for k,v in enumerate(emotions)})
 
 # Load teencode
 teencodes = {}
-with open(r'..\Data\teencode4.txt','r', encoding="utf8") as file:
+with open(r'..\\Data\\teencode4.txt','r', encoding="utf8") as file:
     file = file.read()
     lines = file.split('\n')
     for line in lines:
@@ -31,7 +31,7 @@ def preprocess_teencodes(sentence):
 
 # Load stopwords
 stopwords = []
-with open(r'..\Data\vietnamese-stopwords.txt', 'r', encoding="utf8") as f:
+with open(r'..\\Data\\vietnamese-stopwords.txt', 'r', encoding="utf8") as f:
     for line in f:
         stopwords.append(line.strip())
 def remove_stopwords(words):
