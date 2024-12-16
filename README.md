@@ -1,6 +1,8 @@
 # EmotionsRecognition
 This repository contains the code and document for our final semester NLP project at UEH.
 
+Visit our applications [here](https://webdeploy.streamlit.app/)
+
 Contributors: 
 - Nguyễn Đôn Đức
 - Đỗ Nhật Phương
