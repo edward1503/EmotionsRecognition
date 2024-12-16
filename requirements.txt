@@ -2,8 +2,12 @@ joblib
 numpy
 pandas
 scikit-learn
-transformers
-torch
 seaborn
 matplotlib
 streamlit
+gensim
+pickle
+re
+pyvi
+emoji
+tensorflow
